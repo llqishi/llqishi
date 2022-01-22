@@ -64,6 +64,7 @@
      <Compile Include="Assets\脚本\SFXM.cs" />
      <Compile Include="Assets\脚本\SoundManager.cs" />
      <Compile Include="Assets\脚本\Spring.cs" />
+     <Compile Include="Assets\脚本\UIbutton.cs" />
      <Compile Include="Assets\资源\Pixel UI\Demo\Scripts\ClockDemo.cs" />
      <Compile Include="Assets\资源\Pixel UI\Demo\Scripts\CubitsController.cs" />
      <Compile Include="Assets\资源\Pixel UI\Demo\Scripts\DemoDialogue.cs" />
