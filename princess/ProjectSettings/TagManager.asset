@@ -11,6 +11,7 @@ TagManager:
   - Tag_pri
   - Tag_ground
   - Tag_cha
+  - Tag_spring
   layers:
   - Default
   - TransparentFX

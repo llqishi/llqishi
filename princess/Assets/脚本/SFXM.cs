@@ -17,7 +17,7 @@ public class SFXM : MonoBehaviour
 
     public void Win()
     {
-        InvokeRepeating("PlaySfx", 0,2);
+        InvokeRepeating("PlaySfx", 0,1);
     }
 
     /// <summary>
@@ -25,7 +25,10 @@ public class SFXM : MonoBehaviour
     /// </summary>
     private void PlaySfx()
     {
-        Vector2 v2 = new Vector2(Random.Range(-7.1f, 7.1f), Random.Range(-2.1f, 1.1f));
-        Instantiate(winSfx, v2, Quaternion.Euler(0, 0, 0));
+        if(gm.gameState==GM.enum_gameState.win)
+        {
+            Vector2 v2 = new Vector2(Random.Range(-7.1f, 7.1f), Random.Range(-1.1f, 1.1f));
+            Instantiate(winSfx, v2, Quaternion.Euler(0, 0, 0));
+        }
     }
 }

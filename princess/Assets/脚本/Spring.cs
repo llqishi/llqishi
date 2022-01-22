@@ -31,7 +31,7 @@ public class Spring : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag=="Tag_cha"|| col.gameObject.tag == "Tag_pri" || col.gameObject.tag == "Tag_box")
-        {
+            {
             //物体在弹簧左边，向右弹
             if(col.gameObject.transform.position.x<transform.position.x)
             {
@@ -42,7 +42,7 @@ public class Spring : MonoBehaviour
                 col.GetComponent<Rigidbody2D>().velocity = new Vector2(-horizontalForce, verticalForce);
             }
             SpringOn();
-        }
+            }
     }
 
     private void SpringOn()

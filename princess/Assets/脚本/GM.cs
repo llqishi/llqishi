@@ -55,7 +55,6 @@ public class GM : MonoBehaviour
     /// <summary>
     /// 复活点的位置坐标
     /// </summary>
-    [HideInInspector]
     public Vector2 BindPos;
 
     [Header("游戏主角")]
@@ -66,10 +65,16 @@ public class GM : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
+
         Del_GameStart += CreateNewCha;
         Del_GameStart += CreateNewPri;
+        Del_GameStart += LevelStart;
+
         Del_ChaDie += CreateNewCha;
+
+        Del_PriGet += LevelComplete;
+        Del_PriDie += LevelLose;
     }
 
     void Start()
@@ -79,7 +84,7 @@ public class GM : MonoBehaviour
 
     void Update()
     {
-        
+        LevelControl();
     }
 
     /// <summary>
@@ -87,9 +92,28 @@ public class GM : MonoBehaviour
     /// </summary>
     private void LevelControl()
     {
-        switch(gameState)
+        switch (gameState)
         {
-
+            case enum_gameState.lose:if (Input.anyKeyDown)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);//失败后按任意键重开
+                    Del_GameStart();
+                }
+                break;
+            case enum_gameState.win:if(Input.anyKeyDown)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);//胜利后按任意键下一关
+                    Del_GameStart();
+                }
+                break;
+        }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);//按r重开本关
+        }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 
@@ -110,6 +134,14 @@ public class GM : MonoBehaviour
     }
 
     /// <summary>
+    /// 关卡开始时触发
+    /// </summary>
+    private void LevelStart()
+    {
+        gameState = enum_gameState.normal;
+    }
+
+    /// <summary>
     /// 关卡完成
     /// </summary>
     private void LevelComplete()
@@ -120,4 +152,11 @@ public class GM : MonoBehaviour
         }
     }
 
+    private void LevelLose()
+    {
+        if (gameState == enum_gameState.normal)
+        {
+            gameState = enum_gameState.lose;
+        }
+    }
 }

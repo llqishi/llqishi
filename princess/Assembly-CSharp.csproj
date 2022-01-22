@@ -55,12 +55,14 @@
   <ItemGroup>
      <Compile Include="Assets\脚本\Bind.cs" />
      <Compile Include="Assets\脚本\Destination.cs" />
+     <Compile Include="Assets\脚本\DoorEnter.cs" />
      <Compile Include="Assets\脚本\FlyBoard.cs" />
      <Compile Include="Assets\脚本\GM.cs" />
      <Compile Include="Assets\脚本\MainCha.cs" />
      <Compile Include="Assets\脚本\PriHands.cs" />
      <Compile Include="Assets\脚本\Princess.cs" />
      <Compile Include="Assets\脚本\SFXM.cs" />
+     <Compile Include="Assets\脚本\SoundManager.cs" />
      <Compile Include="Assets\脚本\Spring.cs" />
      <Compile Include="Assets\资源\Pixel UI\Demo\Scripts\ClockDemo.cs" />
      <Compile Include="Assets\资源\Pixel UI\Demo\Scripts\CubitsController.cs" />

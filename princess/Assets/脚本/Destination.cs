@@ -34,6 +34,9 @@ public class Destination : MonoBehaviour
     /// </summary>
     void Get()
     {
-        gm.Del_PriGet();
+        if(gm.gameState==GM.enum_gameState.normal)
+        {
+            gm.Del_PriGet();
+        }
     }
 }

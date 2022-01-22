@@ -30,7 +30,10 @@ public class MainCha : MonoBehaviour
     /// <summary>
     /// 角色是否在地面上
     /// </summary>
-    bool isOnGround;
+    [HideInInspector]
+    public bool isOnGround;
+
+    bool isSpring;
 
     void Awake()
     {
@@ -48,15 +51,23 @@ public class MainCha : MonoBehaviour
         switch (chaState)
         { 
         case enum_chaState.idle: 
-                if (isOnGround)
+                if (isOnGround&&!isSpring)
                     Move();
                 break;
         }
     }
 
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (isSpring && col.gameObject.tag == "Tag_ground")
+        {
+            isSpring = false;
+        }
+    }
+
     void OnCollisionStay2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Tag_ground")
+        if (col.gameObject.tag == "Tag_ground"|| col.gameObject.tag == "Tag_box")
         {
             isOnGround = true;
         }
@@ -64,16 +75,22 @@ public class MainCha : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Tag_ground")
+        if (col.gameObject.tag == "Tag_ground" || col.gameObject.tag == "Tag_box" && isOnGround)
         {
             isOnGround = false;
-            rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x / 4, rigidbody2d.velocity.y);//降低在空中的速度
+            if (!isSpring)
+            { rigidbody2d.velocity = new Vector2(rigidbody2d.velocity.x / 4, rigidbody2d.velocity.y); }//降低在空中的速度
         }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-       if(col.tag=="Tag_die")
+        if (col.tag == "Tag_spring")
+        {
+            isSpring = true;
+            transform.position = new Vector2(transform.position.x, transform.position.y + 0.1f);
+        }
+        if (col.tag=="Tag_die")
         {
             Die();//角色死亡
         }
@@ -87,11 +104,12 @@ public class MainCha : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             rigidbody2d.velocity = new Vector2(-speed, rigidbody2d.velocity.y);
-
+            transform.rotation = Quaternion.Euler(0, 0, 0);//角色朝向左
         }
         if (Input.GetKey(KeyCode.D))
         {
             rigidbody2d.velocity = new Vector2(speed, rigidbody2d.velocity.y);
+            transform.rotation=Quaternion.Euler(0,180,0);//角色朝向右
         }
         if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         {
